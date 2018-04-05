@@ -16,11 +16,6 @@ import org.springframework.stereotype.Component;
 @EnableBinding(AnalyticsBinding.class)
 public class KafkaApplication {
 
-    private final MessageChannel pageViewsOut;
-
-    public KafkaApplication(final AnalyticsBinding binding) {
-        this.pageViewsOut = binding.pageViewsOut();
-    }
 
 
 	@Component
@@ -49,6 +44,6 @@ interface AnalyticsBinding {
 @AllArgsConstructor
 @NoArgsConstructor
 class PageViewEvent {
-	private String id, name;
+	private String  name, page;
 	private long duration;
 }
