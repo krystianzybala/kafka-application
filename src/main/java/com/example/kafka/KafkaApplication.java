@@ -10,3 +10,12 @@ public class KafkaApplication {
 		SpringApplication.run(KafkaApplication.class, args);
 	}
 }
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class PageViewEvent {
+	private String id, name;
+	private long duration;
+}
