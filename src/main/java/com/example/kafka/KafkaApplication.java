@@ -7,10 +7,21 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication
+@EnableBinding(AnalyticsBinding.class)
 public class KafkaApplication {
+
+    private final MessageChannel pageViewsOut;
+
+    public KafkaApplication(final AnalyticsBinding binding) {
+        this.pageViewsOut = binding.pageViewsOut();
+    }
+
 
 	@Component
 	public static class PageViewEventSource implements ApplicationRunner {
@@ -23,6 +34,14 @@ public class KafkaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KafkaApplication.class, args);
 	}
+}
+
+interface AnalyticsBinding {
+
+    String PAGE_VIEWS_OUT = "pvout";
+
+    @Output(PAGE_VIEWS_OUT)
+    MessageChannel pageViewsOut();
 }
 
 
