@@ -21,6 +21,13 @@ public class KafkaApplication {
 	@Component
 	public static class PageViewEventSource implements ApplicationRunner {
 
+		private final MessageChannel pageViewsOut;
+
+		public PageViewEventSource(final AnalyticsBinding binding) {
+			this.pageViewsOut = binding.pageViewsOut();
+		}
+
+
 		@Override
 		public void run(final ApplicationArguments args) throws Exception {
 
